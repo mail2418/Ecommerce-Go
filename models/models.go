@@ -15,7 +15,7 @@ type User struct {
 	Email           string             `json:"email" validate:"required,email"`
 	Phone           string             `json:"phone" validate:"required"`
 	Token           string             `json:"token"`
-	Refreseh_Token  string             `json:"refresh_token"`
+	Refresh_Token  string             `json:"refresh_token"`
 	User_Cart       []ProductUser      `json:"user_cart" bson:"usercart"`
 	Address_Details []Address          `json:"address_details" bson:"address"`
 	Order_Status    Order              `json:"order_status"`
