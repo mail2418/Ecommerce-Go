@@ -10,7 +10,7 @@ type User struct {
 	ID              primitive.ObjectID `json:"id" bson:"id"`
 	User_ID         string             `json:"user_id"`
 	First_Name      string             `json:"first_name" validate:"required,min=2,max=30"`
-	Last_Name       string             `json:"last_name" validate:"required.min=2,max=30"`
+	Last_Name       string             `json:"last_name" validate:"required,min=2,max=30"`
 	Password        string             `json:"password" validate:"required,min=6"`
 	Email           string             `json:"email" validate:"required,email"`
 	Phone           string             `json:"phone" validate:"required"`
@@ -18,7 +18,7 @@ type User struct {
 	Refresh_Token  string             `json:"refresh_token"`
 	User_Cart       []ProductUser      `json:"user_cart" bson:"usercart"`
 	Address_Details []Address          `json:"address_details" bson:"address"`
-	Order_Status    Order              `json:"order_status"`
+	Order_Status    []Order              `json:"order_status"`
 	Created_At      time.Time          `json:"created_at"`
 	Updated_At      time.Time          `json:"updated_at"`
 }

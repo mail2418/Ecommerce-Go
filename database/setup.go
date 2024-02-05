@@ -9,6 +9,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
+var UserCollection *mongo.Collection = UserData(Client, "Users")
+var ProductCollection *mongo.Collection = ProductData(Client, "Products")
 
 func DBSetup() *mongo.Client {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -20,11 +22,6 @@ func DBSetup() *mongo.Client {
 		log.Fatal(err)
 		panic(err)
 	}
-	defer func() {
-		if err := client.Disconnect(ctx); err != nil {
-			panic(err)
-		}
-	}()
 	err = client.Ping(context.TODO(), nil)
 	if err != nil{
 		log.Println("failed to connect mongoDB")

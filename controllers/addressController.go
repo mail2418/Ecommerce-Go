@@ -52,7 +52,7 @@ func AddAddress() gin.HandlerFunc {
 		var size int32
 		for _, address_no := range addressInfo{
 			count := address_no["count"]
-			size = count.int(32)
+			size = count.(int32)
 		}
 		if size < 2 {
 			filter := bson.D{primitive.E{Key: "id", Value: address}}
