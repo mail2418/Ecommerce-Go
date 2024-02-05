@@ -51,7 +51,7 @@ type Order struct {
 	Order_ID       primitive.ObjectID `bson:"id"`
 	Order_Cart     []ProductUser      `json:"order_cart" bson:"order_cart"`
 	Ordered_At     time.Time          `json:"ordered_at" bson:"ordered_at"`
-	Price          uint64             `json:"price" bson:"price"`
+	Price          int64             `json:"price" bson:"price"`
 	Discount       uint16             `json:"discount" bson:"discount"`
 	Payment_Method Payment            `json:"payment_method" bson:"payment_method"`
 }
