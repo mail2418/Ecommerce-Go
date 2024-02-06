@@ -117,6 +117,10 @@ func EditWorkAddress() gin.HandlerFunc {
 			c.IndentedJSON(http.StatusBadRequest, err.Error())
 		}
 		new_user_id, err := primitive.ObjectIDFromHex(user_id)
+		if err != nil {
+			c.IndentedJSON(http.StatusInternalServerError, "something went wrong")
+			return
+		}
 		filter := bson.D{primitive.E{Key: "id", Value: new_user_id}}
 		update := bson.D{{Key: "$set", Value: bson.D{primitive.E{Key: "address.1.house_name", Value: editaddress.House}, {Key: "address.1.street_name", Value: editaddress.Street}, {Key: "address.1.city_name", Value: editaddress.City}, {Key: "address.1.post_code", Value: editaddress.Post_Code}}}}
 		_, err = UserCollection.UpdateOne(ctx, filter, update)

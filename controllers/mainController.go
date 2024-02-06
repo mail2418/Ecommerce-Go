@@ -60,14 +60,14 @@ func SignUp() gin.HandlerFunc{
 			c.JSON(http.StatusBadRequest,gin.H{"error":"phone already in use"})
 		}
 
-		password := HashPassword(*&user.Password)
+		password := HashPassword(user.Password)
 		user.Password = password
 		user.Created_At, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
 		user.Updated_At, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
 		user.ID = primitive.NewObjectID()
 		user.User_ID = user.ID.Hex()
 
-		token, refreshToken, _ := generate.TokenGenerator(*&user.Email, *&user.First_Name, *&user.Last_Name, user.User_ID)
+		token, refreshToken, _ := generate.TokenGenerator(user.Email, user.First_Name, user.Last_Name, user.User_ID)
 		user.Token = token
 		user.Refresh_Token = refreshToken
 		user.User_Cart = make([]models.ProductUser,0)
@@ -123,7 +123,7 @@ func Login() gin.HandlerFunc{
 			return
 		}
 
-		passwordIsValid, msg := VerifyPassword(*&user.Password, *&foundUser.Password)
+		passwordIsValid, msg := VerifyPassword(user.Password, foundUser.Password)
 		defer cancel()
 
 		if !passwordIsValid{
@@ -131,7 +131,7 @@ func Login() gin.HandlerFunc{
 			fmt.Println(msg)
 			return
 		}
-		token, refreshToken, _ := generate.TokenGenerator(*&foundUser.Email, *&foundUser.First_Name, *&foundUser.Last_Name, foundUser.User_ID)
+		token, refreshToken, _ := generate.TokenGenerator(foundUser.Email, foundUser.First_Name, foundUser.Last_Name, foundUser.User_ID)
 		defer cancel()
 		generate.UpdateAllTokens(token, refreshToken, foundUser.User_ID)
 

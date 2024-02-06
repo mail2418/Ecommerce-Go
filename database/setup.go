@@ -15,8 +15,7 @@ var ProductCollection *mongo.Collection = ProductData(Client, "Products")
 func DBSetup() *mongo.Client {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-
-	clientOps := options.Client().ApplyURI("mongodb://localhost:27017")
+	clientOps := options.Client().ApplyURI("mongodb://admin:pass@localhost:27017")
 	client, err := mongo.Connect(ctx, clientOps)
 	if err != nil {
 		log.Fatal(err)
